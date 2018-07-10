@@ -22,7 +22,7 @@
 
 ## 基本策略
 
-由於 react-redux 架構中  的測試非常難避免單元測試與整合測試混淆不清的狀況 。一旦牽涉到整合測試 ，container / action creator / reducer 之間錯綜復雜的糾纏又在相當程度上增加偵錯的難度因而失去撰寫測試的本意。
+由於 react-redux 架構中的測試非常難避免單元測試與整合測試混淆不清的狀況。一旦牽涉到整合測試 ，container / action creator / reducer 之間錯綜復雜的糾纏又在相當程度上增加偵錯的難度因而失去撰寫測試的本意。
 
 許多人在撰寫測試的過程都會遇到類似的困擾：究竟我在測試的是我撰寫的代碼還是 react-redux 本身？為了避免這些不必要的煩惱，我選擇只針對自己寫的邏輯進行單元測試，整合的部分完全相信 react-redux 會完成他該做的工作。
 
@@ -32,7 +32,7 @@
 
 在良好架構中的 components 應包含最少的邏輯，其保有的狀態也應限於與視覺有關的，於是我們在測試時並不在乎 props 是如何產生，而專注於在這樣的 props 組合下他是否能正確渲染。
 
-我選用了 snapshot 快照測試作為主要的測試方法 。他的特色在於不給定期望的值而是直接把現在渲染出的 html 與前次儲存的快照做對比。只要內容不同就會給出提示，此時我們可以判斷當中的不同處是我們想要的修改或是無意間造成的錯誤。若是我們要的修改就選擇更新快照，之後的測試就會與更新後的快照做比對。實際上的操作十分簡單：使用 enzyme 的 shallow 淺層渲染我們帶入期望的 props，enzyme-to-json 會將其製作成快照，至此針對這組 props 的測試就已經完成了。接著我們只要把各種可能的 props 組合分別用 enzyme shallow 出來並逐一製作快照比對。
+我選用了 snapshot 快照測試作為主要的測試方法。他的特色在於不給定期望的值而是直接把現在渲染出的 html 與前次儲存的快照做對比。只要內容不同就會給出提示，此時我們可以判斷當中的不同處是我們想要的修改或是無意間造成的錯誤。若是我們要的修改就選擇更新快照，之後的測試就會與更新後的快照做比對。實際上的操作十分簡單：使用 enzyme 的 shallow 淺層渲染我們帶入期望的 props，enzyme-to-json會將其製作成快照，至此針對這組 props 的測試就已經完成了。接著我們只要把各種可能的 props 組合分別用 enzyme shallow 出來並逐一製作快照比對。
 
 考量代碼如下:
 
@@ -78,14 +78,14 @@ describe('<Avatar />', () => {
     const enzymeWrapper = shallow(<Avatar {...props} />);
 
     it('renders without crashing', () => {
-      expect(enzymeWrapper.length).toBe(1);                 // 檢查是否成功渲染不崩潰
+      expect(enzymeWrapper.length).toBe(1);                 // 檢查是否成功渲染不崩潰
     });
 
     describe('isLoggedin: false', () => {
       props.isLoggedin = false;                             // 設定props場景
-      const enzymeWrapper = shallow(<Avatar {...props} />); // 製作快照
+      const enzymeWrapper = shallow(<Avatar {...props} />); // 製作快照
       it('should match snapshot', () => {
-        expect(enzymeWrapper).toMatchSnapshot();            // 比對快照
+        expect(enzymeWrapper).toMatchSnapshot();            // 比對快照
       });
     });
 
