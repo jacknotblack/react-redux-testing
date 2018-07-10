@@ -60,7 +60,7 @@ const Avatar = ({
 export Avatar
 ```
 
-使用上述的快照測試以上的簡單 component，方法如下：
+使用上述的快照測試以上的簡單 component，方法如下：
 
 ```javascript
 import React from 'react';
